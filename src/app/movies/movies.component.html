@@ -1,0 +1,78 @@
+<div class="ui container">
+  <div class="ui grid">
+    <div class="middle aligned sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="ui large breadcrumb">
+        <div class="active section">
+          <span class="ui orange header">
+           
+            <span >{{searchedItem}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="right aligned middle aligned sixteen wide mobile eight wide tablet eight wide computer column">
+      <div class="ui text compact menu">
+        
+        <div class="header item">
+         
+          <span >Sort by</span>
+          </div>
+        <a class="item" (click)="sortMovies('title')">
+          <i class="font icon"></i>
+        
+          <span >Title</span>
+        </a>
+        <a class="item" (click)="getMovies()">
+            <i class="empty star icon"></i>
+          
+            <span >Home</span>
+          </a>
+        <a class="item" (click)="sortMovies('popularity')">
+          <i class="empty star icon"></i>
+        
+          <span >Popularity</span>
+        </a>
+        <a class="item" (click)="currentRunning('popularity')">
+          <i class="empty star icon"></i>
+        
+          <span >Now Playing</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui link five doubling cards">
+    <div class="card" *ngFor="let movie of movies | async" [routerLink]="['/movie/'+movie.id]" routerLinkActive="active">
+      <div class="image">
+        <img *ngIf="movie.poster_path" class="ui middle aligned tiny image" src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}">
+        <img *ngIf="!movie.poster_path" class="ui middle aligned tiny image" src="https://placehold.it/500x740">
+      </div>
+      <div class="content">
+        <div class="header">
+            {{ movie.title }}
+        </div>
+
+        <div class="description">
+       
+          <span >Popularity</span>
+          : {{ movie.popularity  | number : '1.0-1' }}
+          <br>
+         
+          <span >Vote count</span>
+          : {{ movie.vote_count }}
+        </div>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          <h3>
+            <i class="star icon"></i>
+            {{ movie.vote_average }}
+          </h3>
+
+        </span>
+        {{ movie.release_date }}
+      </div>
+    </div>
+  </div>
+</div>
